@@ -1,4 +1,3 @@
-const fs = require('fs');
 const readline = require('readline');
 
 function isNumeric(value) {
@@ -20,7 +19,7 @@ function solveQuadratic(a, b, c) {
     }
 }
 
-function askNumber(rl, promptText, allowZero = true) {
+function askForNumber(rl, promptText, allowZero = true) {
     return new Promise((resolve) => {
         const ask = () => {
             rl.question(promptText, (input) => {
@@ -41,61 +40,24 @@ function askNumber(rl, promptText, allowZero = true) {
     });
 }
 
-async function interactiveMode() {
+async function runInteractiveMode() {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
     });
 
-    const a = await askNumber(rl, 'Enter a: ', false);
-    const b = await askNumber(rl, 'Enter b: ');
-    const c = await askNumber(rl, 'Enter c: ');
+    const a = await askForNumber(rl, 'Enter a: ', false);
+    const b = await askForNumber(rl, 'Enter b: ');
+    const c = await askForNumber(rl, 'Enter c: ');
 
     solveQuadratic(a, b, c);
     rl.close();
 }
 
-function nonInteractiveMode(filename) {
-    try {
-        if (!fs.existsSync(filename)) {
-            console.error(`Error: File "${filename}" does not exist.`);
-            process.exit(1);
-        }
-
-        const content = fs.readFileSync(filename, 'utf8').trim();
-        const [aStr, bStr, cStr] = content.split(/\s+/);
-
-        if (aStr === undefined || bStr === undefined || cStr === undefined) {
-            console.error('Error: File must contain three numeric values.');
-            process.exit(1);
-        }
-
-        const a = parseFloat(aStr);
-        const b = parseFloat(bStr);
-        const c = parseFloat(cStr);
-
-        if (!isNumeric(a) || !isNumeric(b) || !isNumeric(c)) {
-            console.error('Error: File contains non-numeric values.');
-            process.exit(1);
-        }
-
-        if (a === 0) {
-            console.error('Error: "a" cannot be 0 in a quadratic equation.');
-            process.exit(1);
-        }
-
-        solveQuadratic(a, b, c);
-    } catch (err) {
-        console.error('Unexpected error while reading file:', err.message);
-        process.exit(1);
-    }
-}
-
-
 const args = process.argv.slice(2);
 
 if (args.length === 0) {
-    interactiveMode();
+    runInteractiveMode();
 } else {
-    nonInteractiveMode(args[0]);
+    runNonInteractiveMode();
 }
