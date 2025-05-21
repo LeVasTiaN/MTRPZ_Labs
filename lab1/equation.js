@@ -1,4 +1,9 @@
 const readline = require('readline');
+
+function isNumeric(value) {
+    return !isNaN(value) && isFinite(value);
+}
+
 function solveQuadratic(a, b, c) {
     console.log(`Equation is: ${a}x^2 + ${b}x + ${c} = 0\n`)
     const discriminant = b * b - 4 * a * c;
@@ -13,23 +18,43 @@ function solveQuadratic(a, b, c) {
         console.log('No real roots exist.');
     }
 }
-function runInteractiveMode() {
+
+function askForNumber(rl, promptText, allowZero = true) {
+    return new Promise((resolve) => {
+        const ask = () => {
+            rl.question(promptText, (input) => {
+                const value = parseFloat(input);
+                if (!isNumeric(value) || (!allowZero && value === 0)) {
+                    console.log(
+                        !isNumeric(value)
+                            ? `Invalid input. Expected a valid real number, got ${input} instead.`
+                            : 'Invalid input. "a" cannot be 0 in a quadratic equation.'
+                    );
+                    ask();
+                } else {
+                    resolve(value);
+                }
+            });
+        };
+        ask();
+    });
+}
+
+async function runInteractiveMode() {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
     });
 
-    rl.question('Enter a: ', (a) => {
-        rl.question('Enter b: ', (b) => {
-            rl.question('Enter c: ', (c) => {
-                solveQuadratic(a, b, c);
-                rl.close();
-            });
-        });
-    });
+    const a = await askForNumber(rl, 'Enter a: ', false);
+    const b = await askForNumber(rl, 'Enter b: ');
+    const c = await askForNumber(rl, 'Enter c: ');
+
+    solveQuadratic(a, b, c);
+    rl.close();
 }
 
-const args = process.argv.slice(2)
+const args = process.argv.slice(2);
 
 if (args.length === 0) {
     runInteractiveMode();
