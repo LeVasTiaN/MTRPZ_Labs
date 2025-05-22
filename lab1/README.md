@@ -45,4 +45,4 @@ npm run equation parameters.txt
 ### Revert commit
 
 - **Commit ID:** `0166610d4d38fb707ed525a0ec50b8fc9154c1c1`
-- **Повідомлення коміта:** *"Revert "Added Non-responsive mode""*
+- **Повідомлення коміта:** *"Revert "Added Non-interactive mode""*
