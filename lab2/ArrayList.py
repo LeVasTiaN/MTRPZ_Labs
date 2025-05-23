@@ -1,63 +1,68 @@
 class ArrayList:
     def __init__(self):
-        self._items = []
+        self.items = []
 
     def length(self):
-        return len(self._items)
+        return len(self.items)
 
     def append(self, ch):
-        if not isinstance(ch, str) or len(ch) != 1:
-            raise ValueError("Only single characters allowed")
-        self._items.append(ch)
+        self.validate_char(ch)
+        self.items.append(ch)
 
     def delete(self, index):
-        if index < 0 or index >= len(self._items):
+        if index < 0 or index >= len(self.items):
             raise IndexError("Index out of bounds")
-        return self._items.pop(index)
+        return self.items.pop(index)
 
     def insert(self, ch, index):
-        if not isinstance(ch, str) or len(ch) != 1:
-            raise ValueError("Only single characters allowed")
-        if index < 0 or index > len(self._items):
+        self.validate_char(ch)
+        if index < 0 or index > len(self.items):
             raise IndexError("Index out of bounds")
-        self._items.insert(index, ch)
+        self.items.insert(index, ch)
 
     def deleteAll(self, ch):
-        self._items = [x for x in self._items if x != ch]
+        self.validate_char(ch)
+        self.items = [x for x in self.items if x != ch]
 
     def get(self, index):
-        if index < 0 or index >= len(self._items):
+        if index < 0 or index >= len(self.items):
             raise IndexError("Index out of bounds")
-        return self._items[index]
+        return self.items[index]
 
     def clone(self):
         copy = ArrayList()
-        copy._data = self._items.copy()
+        copy.items = self.items.copy()
         return copy
 
     def reverse(self):
-        self._items.reverse()
+        self.items.reverse()
 
     def findFirst(self, ch):
+        self.validate_char(ch)
         try:
-            return self._items.index(ch)
+            return self.items.index(ch)
         except ValueError:
             return -1
 
     def findLast(self, ch):
-        for i in range(len(self._items) - 1, -1, -1):
-            if self._items[i] == ch:
+        self.validate_char(ch)
+        for i in range(len(self.items) - 1, -1, -1):
+            if self.items[i] == ch:
                 return i
         return -1
 
     def clear(self):
-        self._items.clear()
+        self.items.clear()
 
     def extend(self, other):
         if not isinstance(other, ArrayList):
             raise TypeError("Expected ArrayList instance")
-        self._items.extend(other._items.copy())
+        self.items.extend(other.items.copy())
+
+    def validate_char(self, c):
+        if not isinstance(c, str) or len(c) != 1:
+            raise ValueError("Element must be a single character")
 
     def __str__(self):
-        return f"[{', '.join(self._items)}]"
+        return f"[{', '.join(self.items)}]"
 
