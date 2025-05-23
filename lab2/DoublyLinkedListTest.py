@@ -13,7 +13,7 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.assertEqual(self.lst.length(), 3)
 
     def test_append(self):
-        #self.lst.append('d')
+        self.lst.append('d')
         self.assertEqual(str(self.lst), "[a, b, c, d]")
 
     def test_insert_beginning(self):
@@ -21,7 +21,7 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.assertEqual(str(self.lst), "[x, a, b, c]")
 
     def test_insert_middle(self):
-        #self.lst.insert('x', 1)
+        self.lst.insert('x', 1)
         self.assertEqual(str(self.lst), "[a, x, b, c]")
 
     def test_insert_end(self):
@@ -38,7 +38,7 @@ class TestDoublyLinkedList(unittest.TestCase):
 
     def test_delete(self):
         removed = self.lst.delete(1)
-        #self.assertEqual(removed, 'b')
+        self.assertEqual(removed, 'b')
         self.assertEqual(str(self.lst), "[a, c]")
 
     def test_delete_invalid_index(self):
@@ -51,7 +51,7 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.assertEqual(str(self.lst), "[b, c]")
 
     def test_deleteAll_not_found(self):
-        #self.lst.deleteAll('z')
+        self.lst.deleteAll('z')
         self.assertEqual(str(self.lst), "[a, b, c]")
 
     def test_get(self):
@@ -64,7 +64,7 @@ class TestDoublyLinkedList(unittest.TestCase):
 
     def test_clone(self):
         clone = self.lst.clone()
-        #self.lst.delete(0)
+        self.lst.delete(0)
         self.assertEqual(str(clone), "[a, b, c]")
         self.assertEqual(str(self.lst), "[b, c]")
 
@@ -77,7 +77,7 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.assertEqual(self.lst.findFirst('z'), -1)
 
     def test_findLast(self):
-        #self.lst.append('a')
+        self.lst.append('a')
         self.assertEqual(self.lst.findLast('a'), 3)
         self.assertEqual(self.lst.findLast('z'), -1)
 
@@ -97,7 +97,7 @@ class TestDoublyLinkedList(unittest.TestCase):
         other = DoublyLinkedList()
         other.append('z')
         self.lst.extend(other)
-        other.append('w')  # This should not affect the main list
+        other.append('w')
         self.assertEqual(str(self.lst), "[a, b, c, z]")
 
 
