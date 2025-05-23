@@ -15,7 +15,11 @@
 ```bash
 python --version 
 ```
-2. Завантажте файли ArrayList.py, ArrayListTest.py, DoublyLinkedList.py, та DoublyLinkedListTest.py.
+2. Клонуйте репозиторій, та відкрийте директорій lab2:
+```bash
+git clone https://github.com/LeVasTiaN/MTRPZ_Labs.git
+cd Mtrpz_Labs/lab2
+```
 
 3. Щоб запустити тести, запустіть каталог проекту в терміналі та введіть:
 ```bash
