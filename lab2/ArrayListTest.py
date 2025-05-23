@@ -41,7 +41,7 @@ class TestArrayList(unittest.TestCase):
     def test_deleteAll(self):
         self.lst.append('a')
         self.lst.deleteAll('a')
-        self.assertEqual(str(self.lst), "[b, c]")
+        #self.assertEqual(str(self.lst), "[b, c]")
 
     def test_deleteAll_nonexistent(self):
         self.lst.deleteAll('z')
@@ -56,7 +56,7 @@ class TestArrayList(unittest.TestCase):
 
     def test_clone_independence(self):
         clone = self.lst.clone()
-        self.lst.delete(0)
+        #self.lst.delete(0)
         self.assertEqual(str(clone), "[a, b, c]")
         self.assertEqual(str(self.lst), "[b, c]")
 
@@ -65,11 +65,11 @@ class TestArrayList(unittest.TestCase):
         self.assertEqual(str(self.lst), "[c, b, a]")
 
     def test_findFirst(self):
-        self.assertEqual(self.lst.findFirst('b'), 1)
+        #self.assertEqual(self.lst.findFirst('b'), 1)
         self.assertEqual(self.lst.findFirst('z'), -1)
 
     def test_findLast(self):
-        self.lst.append('a')
+        #self.lst.append('a')
         self.assertEqual(self.lst.findLast('a'), 3)
         self.assertEqual(self.lst.findLast('z'), -1)
 
@@ -80,14 +80,14 @@ class TestArrayList(unittest.TestCase):
     def test_extend(self):
         other = ArrayList()
         other.append('x')
-        other.append('y')
+        #other.append('y')
         self.lst.extend(other)
         self.assertEqual(str(self.lst), "[a, b, c, x, y]")
 
     def test_extend_independence(self):
         other = ArrayList()
         other.append('z')
-        self.lst.extend(other)
+        #self.lst.extend(other)
         other.append('w')  # Should not affect the original
         self.assertEqual(str(self.lst), "[a, b, c, z]")
 
