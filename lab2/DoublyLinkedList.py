@@ -4,6 +4,7 @@ class DoublyLinkedListNode:
         self.prev = None
         self.next = None
 
+
 class DoublyLinkedList:
     def __init__(self):
         self.head = None
@@ -14,7 +15,7 @@ class DoublyLinkedList:
         return self._length
 
     def append(self, element: str) -> None:
-        self._validate_char(element)
+        self.validate_char(element)
         node = DoublyLinkedListNode(element)
         if not self.head:
             self.head = self.tail = node
@@ -24,12 +25,12 @@ class DoublyLinkedList:
             self.tail = node
         self._length += 1
 
-    def _validate_char(self, c):
+    def validate_char(self, c):
         if not isinstance(c, str) or len(c) != 1:
             raise ValueError("Element must be a single character")
 
     def insert(self, element: str, index: int) -> None:
-        self._validate_char(element)
+        self.validate_char(element)
         if index < 0 or index > self._length:
             raise IndexError("Index out of range")
 
@@ -89,7 +90,7 @@ class DoublyLinkedList:
         return current.value
 
     def deleteAll(self, element: str) -> None:
-        self._validate_char(element)
+        self.validate_char(element)
         current = self.head
         while current:
             next_node = current.next
@@ -121,4 +122,57 @@ class DoublyLinkedList:
             current = current.next
         return new_list
 
-    
+    def reverse(self) -> None:
+        current = self.head
+        self.tail = current
+        prev_node = None
+        while current:
+            next_node = current.next
+            current.next = prev_node
+            current.prev = next_node
+            prev_node = current
+            current = next_node
+        self.head = prev_node
+
+    def findFirst(self, element: str) -> int:
+        self.validate_char(element)
+        index = 0
+        current = self.head
+        while current:
+            if current.value == element:
+                return index
+            current = current.next
+            index += 1
+        return -1
+
+    def findLast(self, element: str) -> int:
+        self.validate_char(element)
+        index = self._length - 1
+        current = self.tail
+        while current:
+            if current.value == element:
+                return index
+            current = current.prev
+            index -= 1
+        return -1
+
+    def clear(self) -> None:
+        self.head = None
+        self.tail = None
+        self._length = 0
+
+    def extend(self, other) -> None:
+        if not isinstance(other, DoublyLinkedList):
+            raise TypeError("Expected a DoublyLinkedList")
+        current = other.head
+        while current:
+            self.append(current.value)
+            current = current.next
+
+    def __str__(self):
+        elements = []
+        current = self.head
+        while current:
+            elements.append(current.value)
+            current = current.next
+        return f"[{', '.join(elements)}]"
