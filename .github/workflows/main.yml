@@ -2,9 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ] 
-    paths:
-      - 'lab2/**'
+    branches: [ "main" ]
 
 jobs:
   test:
@@ -24,4 +22,4 @@ jobs:
         python -m pip install --upgrade pip
     - name: Run unit tests
       run: |
-        python -m unittest discover
+        python -m unittest discover -s lab2 -p '*Test.py' -v 
