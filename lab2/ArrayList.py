@@ -37,3 +37,27 @@ class ArrayList:
 
     def reverse(self):
         self._items.reverse()
+
+    def findFirst(self, ch):
+        try:
+            return self._items.index(ch)
+        except ValueError:
+            return -1
+
+    def findLast(self, ch):
+        for i in range(len(self._items) - 1, -1, -1):
+            if self._items[i] == ch:
+                return i
+        return -1
+
+    def clear(self):
+        self._items.clear()
+
+    def extend(self, other):
+        if not isinstance(other, ArrayList):
+            raise TypeError("Expected ArrayList instance")
+        self._items.extend(other._items.copy())
+
+    def __str__(self):
+        return f"[{', '.join(self._items)}]"
+
