@@ -18,7 +18,7 @@ python --version
 2. Клонуйте репозиторій, та відкрийте директорій lab2:
 ```bash
 git clone https://github.com/LeVasTiaN/MTRPZ_Labs.git
-cd Mtrpz_Labs/lab2
+cd MTRPZ_Labs/lab2
 ```
 
 3. Щоб запустити тести, запустіть каталог проекту в терміналі та введіть:
