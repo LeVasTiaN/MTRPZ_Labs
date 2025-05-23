@@ -68,3 +68,57 @@ class DoublyLinkedList:
             for _ in range(self._length - 1, index, -1):
                 current = current.prev
         return current
+
+    def delete(self, index: int) -> str:
+        if index < 0 or index >= self._length:
+            raise IndexError("Index out of range")
+
+        current = self._node_at(index)
+
+        if current.prev:
+            current.prev.next = current.next
+        else:
+            self.head = current.next
+
+        if current.next:
+            current.next.prev = current.prev
+        else:
+            self.tail = current.prev
+
+        self._length -= 1
+        return current.value
+
+    def deleteAll(self, element: str) -> None:
+        self._validate_char(element)
+        current = self.head
+        while current:
+            next_node = current.next
+            if current.value == element:
+                self._remove_node(current)
+            current = next_node
+
+    def _remove_node(self, node: DoublyLinkedListNode) -> None:
+        if node.prev:
+            node.prev.next = node.next
+        else:
+            self.head = node.next
+
+        if node.next:
+            node.next.prev = node.prev
+        else:
+            self.tail = node.prev
+
+        self._length -= 1
+
+    def get(self, index: int) -> str:
+        return self._node_at(index).value
+
+    def clone(self):
+        new_list = DoublyLinkedList()
+        current = self.head
+        while current:
+            new_list.append(current.value)
+            current = current.next
+        return new_list
+
+    
