@@ -1,10 +1,12 @@
-FROM python:3.13.1-slim
+FROM python:3.10-alpine
 
 WORKDIR /app
 
-COPY . .
+COPY requirements.txt .
 
 RUN python -m pip install -r requirements.txt
+
+COPY . .
 
 EXPOSE 8000
 
